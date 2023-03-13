@@ -28,6 +28,7 @@ class Parent(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=100)
     reg_number = models.CharField(max_length=100)
+    picture = models.ImageField('students/', default='avatar.png')
     classroom = models.ForeignKey(Class, on_delete=models.CASCADE)
     parent = models.ForeignKey(Parent, on_delete=models.CASCADE)
 
