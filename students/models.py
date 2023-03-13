@@ -1,5 +1,4 @@
 from django.db import models
-from django.urls import reverse
 
 
 class Class(models.Model):
@@ -29,14 +28,10 @@ class Parent(models.Model):
 class Student(models.Model):
     name = models.CharField(max_length=100)
     reg_number = models.CharField(max_length=100)
-    student_class = models.ForeignKey(Class, on_delete=models.CASCADE)
-    student_parent = models.ForeignKey(Parent, on_delete=models.CASCADE)
+    classroom = models.ForeignKey(Class, on_delete=models.CASCADE)
+    parent = models.ForeignKey(Parent, on_delete=models.CASCADE)
 
     def __str__(self) -> str: return self.name
-
-    def get_absolute_url(self):
-        return reverse("student_detail", kwargs={"pk": self.pk})
-    
 
     class Meta:
         ordering = ['name']
