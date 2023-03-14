@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Class, Student
+from django.shortcuts import get_object_or_404
 
 def CLASSES(request):
     classes = Class.objects.all()
@@ -24,3 +25,12 @@ def student_detail(request, student_id):
     student = Student.objects.get(id=student_id)
     context = {'student':student}
     return render(request, 'student_detail.html', context)
+
+
+def search_student(request):
+    if request.method == 'GET':
+        search_query = request.GET.get('q')
+        if search_query:
+            results = Student.objects.filter(name__icontains=search_query)
+            return render(request, 'search_student.html', {'results': results})
+    return render(request, 'search_student.html')

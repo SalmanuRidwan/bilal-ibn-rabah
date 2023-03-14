@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.urls import reverse
 
 class Class(models.Model):
     name = models.CharField(max_length=20)
@@ -33,6 +33,9 @@ class Student(models.Model):
     parent = models.ForeignKey(Parent, on_delete=models.CASCADE)
 
     def __str__(self) -> str: return self.name
+
+    def get_admin_edit_url(self):
+        return reverse('admin:students_student_change', args=[str(self.pk)])
 
     class Meta:
         ordering = ['name']
